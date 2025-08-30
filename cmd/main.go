@@ -21,7 +21,6 @@ import (
 )
 
 func main() {
-
 	checkInterval := getEnvDuration("CHECK_INTERVAL", 15*time.Second)
 	maxConc := getEnvInt("MAX_CONCURRENCY", 8)
 	httpTimeout := getEnvDuration("HTTP_TIMEOUT", 5*time.Second)
@@ -54,7 +53,6 @@ func main() {
 
 	mux.HandleFunc("/v1/targets/", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "GET" {
-
 			path := r.URL.Path
 			if strings.HasSuffix(path, "/results") {
 				id := strings.TrimSuffix(strings.TrimPrefix(path, "/v1/targets/"), "/results")
