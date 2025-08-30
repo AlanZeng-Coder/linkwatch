@@ -1,0 +1,23 @@
+name: CI  # 工作流名字，在 GitHub 界面显示
+
+on:  # 触发条件
+  push:  # 当 push 代码到 main 分支时触发
+    branches: [ main ]
+  pull_request:  # 当提交 PR 到 main 分支时触发
+    branches: [ main ]
+
+jobs:  # 作业组
+  build:  # 作业名（可以自定义）
+    runs-on: ubuntu-latest  # 在 Ubuntu 虚拟机上运行
+    steps:  # 步骤列表，按序执行
+    - uses: actions/checkout@v4  # 步骤1: 下载仓库代码
+    - name: Set up Go  # 步骤2: 设置 Go 环境
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.24'  # 指定 Go 版本
+    - name: Install dependencies  # 步骤3: 安装依赖
+      run: go mod tidy  # 运行 go mod tidy 命令
+    - name: Build  # 步骤4: 构建项目
+      run: go build -v ./...  # 编译所有包，-v 显示详细
+    - name: Test  # 步骤5: 运行测试
+      run: go test -v ./...  # 执行所有测试，-v 显示详细输出
